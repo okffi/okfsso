@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from okfsso.core.models import AppInfo
+
+admin.site.register(AppInfo)
