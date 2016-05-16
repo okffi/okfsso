@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<h2>{% trans "Account Service" %}</h2>
+
+<p>{% blocktrans %}Welcome to the {{ SITE_NAME }} single sign on service. Accounts created here can be used to access other services operated by {{ SITE_NAME }}.{% endblocktrans %}</p>
+
+<ul>
+  <li><a href="{% url 'register' %}">{% trans "Create an account" %}</a></li>
+  <li><a href="{% url 'login' %}">{% trans "Log in" %}</a></li>
+</ul>
+{% endblock %}

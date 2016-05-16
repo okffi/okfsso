@@ -1,0 +1,11 @@
+{% extends "form.html" %}
+
+{% load i18n %}
+
+{% block form_title %}{% trans "Log in" %}{% endblock %}
+
+{% block form_blurb %}
+<p>{% blocktrans %}If you have forgotten your password, please contact the webmaster for assistance.{% endblocktrans %}</p>
+{% endblock %}
+
+{% block form_submit %}{% trans "Log in" %}{% endblock %}

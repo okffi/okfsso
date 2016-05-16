@@ -1,0 +1,48 @@
+<!doctype html>
+
+{% load i18n %}
+{% load staticfiles %}
+
+<!-- D-CENT standard CSS -->
+<!-- See also: https://github.com/d-cent/patterns -->
+<link href="{% static "dcent/css/main.css" %}" rel="stylesheet">
+<!-- <link href="{% static "dcent/css/ie.css" %}" rel="stylesheet"> -->
+<link href="{% static "dcent/css/fonts.css" %}" rel="stylesheet">
+<link rel="shortcut icon" href="{% static "dcent/img/favicon.png" %}">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>{{ SITE_NAME }}</title>
+
+<div class="container">
+  <a href="{{ SITE_URL }}"><h1>{{ SITE_NAME }}</h1></a>
+
+  {% for message in messages %}
+  <div class="message alert alert-dismissible alert-{{ message.level_tag }} {{ message.extra_tags }}">
+    <div class="message__body">{{ message.message|safe }}
+      <span class="message__close" aria-hidden="true" data-dismiss="alert">&times;</span>
+    </div>
+  </div>
+  {% endfor %}
+
+  {% block content %}
+  {% endblock %}
+
+  <hr>
+  <div class="grid">
+    <div class="g g--third">
+      {% with "https://github.com/okffi/okfsso" as project_url %}
+      <p>{% blocktrans %}This website is free open source software. Source code is available <a href="{{ project_url }}">on Github</a>.{% endblocktrans %}</p>
+      {% endwith %}
+    </div>
+    <div class="g g--third">
+      <a href="http://www.okfn.org/">
+	<img src="{% static "okf.png" %}" alt="Open Knowledge Foundation">
+      </a>
+    </div>
+    <div class="g g--third">
+      <a href="http://dcentproject.eu">
+	<img src="{% static "dcent/img/D-CENT_Logo.png" %}" alt="D-Cent Project" style="height:43px;">
+      </a>
+    </div>
+</div>

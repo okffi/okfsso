@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<h2>{% trans "API documentation" %}</h2>
+
+<p>
+  {% blocktrans %}This site provides some API endpoints to support single sign on clients. OAuth2 flow is used for authentication. In addition, some information exchange APIs are provided to allow clients to interact with each other.{% endblocktrans %}
+</p>
+
+<p>{% blocktrans %}OAuth2 endpoints are not explained in full. Refer to OAuth specific guides or documentation.{% endblocktrans %}</p>
+
+<p>
+  {% blocktrans %}Authorization code flow is supported. Supported scopes are <tt>read</tt> and <tt>write</tt>.{% endblocktrans %}
+</p>
+
+<p>
+  {% blocktrans %}You can also test your authentication code on a clone of this site. The link to this site's source code should be provided in the footer.{% endblocktrans %}
+</p>
+
+<p>{% blocktrans %}To access authenticated APIs, a Bearer Token is supported.{% endblocktrans %}
+
+<h5>HTTP Header:</h5>
+<pre>
+  Authorization: Bearer &lt;TOKEN-BLOB&gt;
+</pre>
+
+<div>
+  <h4>OAuth Authorize</h4>
+  <p><tt>GET {{ SITE_URL }}{% url 'oauth2_provider:authorize' %}</tt></p>
+  <p>{% trans "Asks the user to authorize the app" %}</td>
+</div>
+
+<div>
+  <h4>OAuth Token</h4>
+  <p><tt>POST {{ SITE_URL }}{% url 'oauth2_provider:token' %}</tt></p>
+  <p>{% trans "Exchange grant for token" %}</p>
+</div>
+
+<div>
+  <h4>OAuth Token Revoke</h4>
+  <p><tt>POST {{ SITE_URL }}{% url 'oauth2_provider:revoke-token' %}</tt></p>
+  <p>{% trans "Revoke a token" %}</p>
+</div>
+
+<div>
+  <h4>{% trans "Member info" %}</h4>
+  <p><tt>GET {{ SITE_URL }}{% url 'get-info' %}</tt></p>
+  <p>{% trans "Exchange a token for user information as JSON." %}</p>
+  <p>{% trans "Some user account info is available under content.user." %}</p>
+  <p>{% trans "Application specific exchange information is available as JSON under content.apps, keyed by app CLIENT_IDs. All apps can view each other's exchange info." %}</p>
+</div>
+
+<div>
+  <h4>{% trans "Set app information" %}</h4>
+  <p><tt>POST {{ SITE_URL }}{% url 'set-info' %}</tt></p>
+  <p>{% trans "Scope" %}: <tt>write</tt></p>
+  <p>
+    {% blocktrans %}Client apps can set exchange data for (user, client) pairs using this API. Both the user and client are implied from the access token.{% endblocktrans %}
+  </p>
+  <p>
+    {% blocktrans %}Provide the new JSON data block in the request body. The old data block for this (user, client) pair will be replaced. There is no API to update specific fields as of now.{% endblocktrans %}
+  </p>
+</div>
+{% endblock %}
